@@ -19,10 +19,13 @@ const RouteWrapper = (props: any) => {
             const queryParams = restProps.location.search.match(reg);
             return queryParams ? queryParams[0] : '{}';
         };
+        console.log('matchQuery', matchQuery(queryReg));
+
         return queryString.parse(matchQuery(queryReg));
     }, [restProps.location.search]);
     const mergeQueryToProps = () => {
         const queryReg = /\?\S*/g;
+        // 把match.params的属性的值设置为空，感觉无意义
         const removeQueryInRouter = (restProps: any, reg: RegExp) => {
             const { params } = restProps.match;
             Object.keys(params).forEach((key) => {

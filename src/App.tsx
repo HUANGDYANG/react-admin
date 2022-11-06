@@ -7,7 +7,7 @@ import SiderCustom from './components/SiderCustom';
 import HeaderCustom from './components/HeaderCustom';
 import { ThemePicker, Copyright } from './components/widget';
 import { checkLogin } from './utils';
-import { fetchMenu } from './service';
+// import { fetchMenu } from './service';
 import classNames from 'classnames';
 import { SmileOutlined } from '@ant-design/icons';
 
@@ -85,10 +85,14 @@ function fetchSmenu(handler: any) {
         // this.props.setAlitaState({ stateName: 'smenus', data: menus });
     };
     setAlitaMenu(umbrella.getLocalStorage('smenus') || []);
-    fetchMenu().then((smenus) => {
-        setAlitaMenu(smenus);
-        umbrella.setLocalStorage('smenus', smenus);
-    });
+    // TODO 接口有问题，暂时设置为空
+    // fetchMenu().then((smenus) => {
+    //   debugger
+    //     setAlitaMenu(smenus);
+    //     umbrella.setLocalStorage('smenus', smenus || []);
+    // });
+    setAlitaMenu([]);
+    umbrella.setLocalStorage('smenus', []);
 }
 
 const App = (props: AppProps) => {
@@ -103,7 +107,6 @@ const App = (props: AppProps) => {
         let user = umbrella.getLocalStorage('user');
         user && setAlita('auth', user);
         setAlita('responsive', { isMobile: checkIsMobile() });
-
         handleResize((isMobile: boolean) => setAlita('responsive', { isMobile }));
         openFNotification();
         fetchSmenu((smenus: any[]) => setAlita('smenus', smenus));
